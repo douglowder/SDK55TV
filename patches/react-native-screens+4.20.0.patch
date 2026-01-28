@@ -1,0 +1,104 @@
+diff --git a/node_modules/react-native-screens/ios/gamma/split-view/RNSSplitViewAppearanceApplicator.swift b/node_modules/react-native-screens/ios/gamma/split-view/RNSSplitViewAppearanceApplicator.swift
+index c4696c8..97c2d1a 100644
+--- a/node_modules/react-native-screens/ios/gamma/split-view/RNSSplitViewAppearanceApplicator.swift
++++ b/node_modules/react-native-screens/ios/gamma/split-view/RNSSplitViewAppearanceApplicator.swift
+@@ -65,7 +65,9 @@ class RNSSplitViewAppearanceApplicator {
+     // Step 1 - general settings
+     splitViewController.displayModeButtonVisibility = splitView.displayModeButtonVisibility
+     splitViewController.preferredSplitBehavior = splitView.preferredSplitBehavior
++#if !os(tvOS)
+     splitViewController.primaryBackgroundStyle = splitView.primaryBackgroundStyle
++#endif
+     splitViewController.presentsWithGesture = splitView.presentsWithGesture
+     splitViewController.primaryEdge = splitView.primaryEdge
+     splitViewController.showsSecondaryOnlyButton = splitView.showSecondaryToggleButton
+@@ -79,8 +81,8 @@ class RNSSplitViewAppearanceApplicator {
+       minWidth: splitView.minimumSupplementaryColumnWidth,
+       maxWidth: splitView.maximumSupplementaryColumnWidth)
+ 
+-    #if compiler(>=6.2)
+-      if #available(iOS 26.0, *) {
++    #if compiler(>=6.2) && !os(tvOS)
++    if #available(iOS 26.0, *) {
+         validateColumnConstraints(
+           minWidth: splitView.minimumInspectorColumnWidth,
+           maxWidth: splitView.maximumInspectorColumnWidth)
+@@ -126,8 +128,8 @@ class RNSSplitViewAppearanceApplicator {
+         splitView.preferredSupplementaryColumnWidthOrFraction
+     }
+ 
+-    #if compiler(>=6.2)
+-      if #available(iOS 26.0, *) {
++    #if compiler(>=6.2) && !os(tvOS)
++    if #available(iOS 26.0, *) {
+         if splitView.minimumSecondaryColumnWidth >= 0 {
+           splitViewController.minimumSecondaryColumnWidth = splitView.minimumSecondaryColumnWidth
+         }
+diff --git a/node_modules/react-native-screens/ios/gamma/split-view/RNSSplitViewHostController.swift b/node_modules/react-native-screens/ios/gamma/split-view/RNSSplitViewHostController.swift
+index 4956c12..d9c8319 100644
+--- a/node_modules/react-native-screens/ios/gamma/split-view/RNSSplitViewHostController.swift
++++ b/node_modules/react-native-screens/ios/gamma/split-view/RNSSplitViewHostController.swift
+@@ -399,7 +399,7 @@ extension RNSSplitViewHostController: RNSSplitViewNavigationControllerViewFrameO
+     /// @param inspectors An array of inspector-type RNSSplitViewScreenComponentView subviews.
+     ///
+     func maybeSetupInspector(_ inspectors: [RNSSplitViewScreenComponentView]) {
+-
++      #if !os(tvOS)
+       if #available(iOS 26.0, *) {
+         let inspector = inspectors.first
+         if inspector != nil {
+@@ -408,6 +408,7 @@ extension RNSSplitViewHostController: RNSSplitViewNavigationControllerViewFrameO
+           setViewController(inspectorViewController, for: .inspector)
+         }
+       }
++      #endif
+     }
+ 
+     ///
+@@ -417,9 +418,11 @@ extension RNSSplitViewHostController: RNSSplitViewNavigationControllerViewFrameO
+     /// Uses the UISplitViewController's new API introduced in iOS 26 to show the inspector column.
+     ///
+     func maybeShowInspector() {
++      #if !os(tvOS)
+       if #available(iOS 26.0, *) {
+         show(.inspector)
+       }
++      #endif
+     }
+ 
+     ///
+@@ -429,9 +432,11 @@ extension RNSSplitViewHostController: RNSSplitViewNavigationControllerViewFrameO
+     /// Uses the UISplitViewController's new API introduced in iOS 26 to hide the inspector column.
+     ///
+     func maybeHideInspector() {
++      #if !os(tvOS)
+       if #available(iOS 26.0, *) {
+         hide(.inspector)
+       }
++      #endif
+     }
+   }
+ #endif
+@@ -473,18 +478,22 @@ extension RNSSplitViewHostController: UISplitViewControllerDelegate {
+         // TODO: we may consider removing this logic, because it could be handled by onViewDidDisappear on the column level
+         // On the other hand, maybe dedicated event related to the inspector would be a better approach.
+         // For now I am leaving it, but feel free to drop this method if there's any reason that `onDidDisappear` works better.
++        #if !os(tvOS)
+         if column != .inspector {
+           return
+         }
++        #endif
+ 
+         // `didHide` for modal is called on finger down for dismiss, what is problematic, because we can cancel dismissing modal.
+         // In this scenario, the modal inspector might receive an invalid state and will deviate from the JS value.
+         // Therefore, for event emissions, we need to ensure that the view was detached from the view hierarchy, by checking its window.
++        #if !os(tvOS)
+         if let inspectorViewController = viewController(for: .inspector) {
+           if inspectorViewController.view.window == nil {
+             reactEventEmitter.emitOnHideInspector()
+           }
+         }
++        #endif
+       }
+     }
+   #endif
