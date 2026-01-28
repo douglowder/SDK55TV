@@ -51,7 +51,15 @@ export const Fonts = Platform.select({
   },
 });
 
-export const Spacing = {
+export const Spacing: {
+  half: number;
+  one: number;
+  two: number;
+  three: number;
+  four: number;
+  five: number;
+  six: number;
+} = {
   half: 2,
   one: 4,
   two: 8,

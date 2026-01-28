@@ -24,8 +24,7 @@ export function ThemedText({
   ...rest
 }: ThemedTextProps) {
   const theme = useTheme();
-  const { scale } = useScreenDimensions();
-  const styles = getStyles(scale);
+  const styles = useTextStyles();
 
   return (
     <Text
@@ -46,8 +45,9 @@ export function ThemedText({
   );
 }
 
-const getStyles = (scale: number) =>
-  StyleSheet.create({
+const useTextStyles = () => {
+  const { scale } = useScreenDimensions();
+  return StyleSheet.create({
     small: {
       fontSize: 14 * scale,
       lineHeight: 20 * scale,
@@ -88,3 +88,4 @@ const getStyles = (scale: number) =>
       fontSize: 12 * scale,
     },
   });
+};

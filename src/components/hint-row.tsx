@@ -1,17 +1,21 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { ThemedText } from './themed-text';
 import { ThemedView } from './themed-view';
 
-import { Spacing } from '@/constants/theme';
+import { useScreenDimensions } from '@/hooks/use-screen-dimensions';
 
 type HintRowProps = {
   title?: string;
   hint?: string;
 };
 
-export function HintRow({ title = 'Try editing', hint = 'app/index.tsx' }: HintRowProps) {
+export function HintRow({
+  title = 'Try editing',
+  hint = 'app/index.tsx',
+}: HintRowProps) {
+  const styles = useHintStyles();
   return (
     <View style={styles.stepRow}>
       <ThemedText type="small">{title}</ThemedText>
@@ -24,14 +28,17 @@ export function HintRow({ title = 'Try editing', hint = 'app/index.tsx' }: HintR
   );
 }
 
-const styles = StyleSheet.create({
-  stepRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  codeSnippet: {
-    borderRadius: Spacing.two,
-    paddingVertical: Spacing.half,
-    paddingHorizontal: Spacing.two,
-  },
-});
+const useHintStyles = () => {
+  const { spacing } = useScreenDimensions();
+  return StyleSheet.create({
+    stepRow: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+    },
+    codeSnippet: {
+      borderRadius: spacing.two,
+      paddingVertical: spacing.half,
+      paddingHorizontal: spacing.two,
+    },
+  });
+};

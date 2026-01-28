@@ -1,4 +1,5 @@
-import { ScreenDimensionsResult } from './useScreenDimensions';
+import { Spacing } from '@/constants/theme';
+import { ScreenDimensionsResult } from './use-screen-dimensions';
 
 export function useScreenDimensions(): ScreenDimensionsResult {
   const width = global.window.innerWidth;
@@ -9,5 +10,6 @@ export function useScreenDimensions(): ScreenDimensionsResult {
     height,
     scale,
     orientation: width > height ? 'landscape' : 'portrait',
+    spacing: Spacing,
   };
 }
