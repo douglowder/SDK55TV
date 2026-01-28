@@ -1650,6 +1650,21 @@
   resolved "https://registry.yarnpkg.com/@radix-ui/react-use-layout-effect/-/react-use-layout-effect-1.1.1.tgz#0c4230a9eed49d4589c967e2d9c0d9d60a23971e"
   integrity sha512-RbJRS4UWQFkzHTTwVymMTUv8EqYhOp8dOOviLj2ugtTiXRaRQS7GLGxZTLL1jWhMeoSCf5zmcZkqTl9IiYfXcQ==
 
+"@react-native-tvos/config-tv@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@react-native-tvos/config-tv/-/config-tv-0.1.4.tgz#d28b5bc8c42b12b35e7d1abd4a2cf547fb4adf0f"
+  integrity sha512-xfVDqSFjEUsb+xcMk0hE2Z/M6QZH0QzAJOSQZwo7W/ZRaLrd+xFQnx0LaXqt3kxlR3P7wskKHByDP/FSoUZnbA==
+  dependencies:
+    getenv "^1.0.0"
+
+"@react-native-tvos/virtualized-lists@0.83.1-1":
+  version "0.83.1-1"
+  resolved "https://registry.yarnpkg.com/@react-native-tvos/virtualized-lists/-/virtualized-lists-0.83.1-1.tgz#8fa69694e48ffa7af3f8fabf179803134646140c"
+  integrity sha512-cnjpcxiUjz+U10e43tGq4LMQX25QXZCKqnqPzMy+rP7UDi6wZV4Qyf4pFxbqXxzEA2aGYv2O78S/xcUNtG00Eg==
+  dependencies:
+    invariant "^2.2.4"
+    nullthrows "^1.1.1"
+
 "@react-native/assets-registry@0.83.1":
   version "0.83.1"
   resolved "https://registry.yarnpkg.com/@react-native/assets-registry/-/assets-registry-0.83.1.tgz#d210065b8d7939660f845fba3c6d9e5aa5998d13"
@@ -1790,14 +1805,6 @@
   version "0.74.89"
   resolved "https://registry.yarnpkg.com/@react-native/normalize-colors/-/normalize-colors-0.74.89.tgz#b8ac17d1bbccd3ef9a1f921665d04d42cff85976"
   integrity sha512-qoMMXddVKVhZ8PA1AbUCk83trpd6N+1nF2A6k1i6LsQObyS92fELuk8kU/lQs6M7BsMHwqyLCpQJ1uFgNvIQXg==
-
-"@react-native/virtualized-lists@0.83.1":
-  version "0.83.1"
-  resolved "https://registry.yarnpkg.com/@react-native/virtualized-lists/-/virtualized-lists-0.83.1.tgz#97e66c6c7d32112cf8da0ddbb29361913a9a8820"
-  integrity sha512-MdmoAbQUTOdicCocm5XAFDJWsswxk7hxa6ALnm6Y88p01HFML0W593hAn6qOt9q6IM1KbAcebtH6oOd4gcQy8w==
-  dependencies:
-    invariant "^2.2.4"
-    nullthrows "^1.1.1"
 
 "@react-navigation/bottom-tabs@7.10.1", "@react-navigation/bottom-tabs@^7.7.3":
   version "7.10.1"
@@ -3926,6 +3933,11 @@ get-tsconfig@^4.10.0:
   dependencies:
     resolve-pkg-maps "^1.0.0"
 
+getenv@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/getenv/-/getenv-1.0.0.tgz#874f2e7544fbca53c7a4738f37de8605c3fcfc31"
+  integrity sha512-7yetJWqbS9sbn0vIfliPsFgoXMKn/YMF+Wuiog97x+urnSRRRZ7xB+uVkwGKzRgq9CDFfMQnE9ruL5DHv9c6Xg==
+
 getenv@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/getenv/-/getenv-2.0.0.tgz#b1698c7b0f29588f4577d06c42c73a5b475c69e0"
@@ -5674,19 +5686,19 @@ react-native-worklets@0.7.2:
     convert-source-map "2.0.0"
     semver "7.7.3"
 
-react-native@0.83.1:
-  version "0.83.1"
-  resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.83.1.tgz#2c163cd055baa40166553487bada1eb7b9de154f"
-  integrity sha512-mL1q5HPq5cWseVhWRLl+Fwvi5z1UO+3vGOpjr+sHFwcUletPRZ5Kv+d0tUfqHmvi73/53NjlQqX1Pyn4GguUfA==
+"react-native@npm:react-native-tvos@0.83-stable":
+  version "0.83.1-1"
+  resolved "https://registry.yarnpkg.com/react-native-tvos/-/react-native-tvos-0.83.1-1.tgz#bea49bd12c78486993630eaa8a72c1a496542514"
+  integrity sha512-3X0PV1M4ku92kA+vGGDvADyRVoAl4djYJkydpA3vBhQ0b8GKp87U5qukfHCeWquNmMWdSxsReC2bGuatCD7auQ==
   dependencies:
     "@jest/create-cache-key-function" "^29.7.0"
+    "@react-native-tvos/virtualized-lists" "0.83.1-1"
     "@react-native/assets-registry" "0.83.1"
     "@react-native/codegen" "0.83.1"
     "@react-native/community-cli-plugin" "0.83.1"
     "@react-native/gradle-plugin" "0.83.1"
     "@react-native/js-polyfills" "0.83.1"
     "@react-native/normalize-colors" "0.83.1"
-    "@react-native/virtualized-lists" "0.83.1"
     abort-controller "^3.0.0"
     anser "^1.4.9"
     ansi-regex "^5.0.0"
