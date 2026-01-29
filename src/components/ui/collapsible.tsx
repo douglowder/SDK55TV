@@ -19,9 +19,10 @@ export function Collapsible({
   return (
     <ThemedView>
       <Pressable
-        style={({ pressed }) => [
+        style={({ pressed, focused }) => [
           styles.heading,
           pressed && styles.pressedHeading,
+          focused && styles.focusedHeading,
         ]}
         onPress={() => setIsOpen((value) => !value)}
       >
@@ -54,14 +55,20 @@ export function Collapsible({
 
 const useCollapsibleStyles = () => {
   const { spacing, scale } = useScreenDimensions();
+  const theme = useTheme();
   return StyleSheet.create({
     heading: {
       flexDirection: 'row',
       alignItems: 'center',
+      width: '100%',
       gap: spacing.two,
+      borderRadius: 12 * scale,
     },
     pressedHeading: {
       opacity: 0.7,
+    },
+    focusedHeading: {
+      backgroundColor: theme.backgroundSelected,
     },
     button: {
       width: spacing.four,
