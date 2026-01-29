@@ -3,11 +3,12 @@
     "name": "WithRouterTV",
     "slug": "with-router-tv",
     "version": "1.0.0",
-    "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "withroutertv",
     "userInterfaceStyle": "automatic",
     "ios": {
+      "supportsTablet": true,
+      "requireFullScreen": true,
       "icon": "./assets/expo.icon"
     },
     "android": {
