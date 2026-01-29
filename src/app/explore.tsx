@@ -9,7 +9,7 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Collapsible } from '@/components/ui/collapsible';
 import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
+import { BottomTabInset, Spacing } from '@/constants/theme';
 import { useScreenDimensions } from '@/hooks/use-screen-dimensions';
 import { useTheme } from '@/hooks/use-theme';
 
@@ -159,7 +159,7 @@ const useExploreStyles = () => {
       justifyContent: 'center',
     },
     container: {
-      maxWidth: Math.min(width * 0.6, MaxContentWidth),
+      maxWidth: width * 0.8,
       flexGrow: 1,
     },
     titleContainer: {

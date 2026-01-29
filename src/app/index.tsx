@@ -6,7 +6,7 @@ import { HintRow } from '@/components/hint-row';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth } from '@/constants/theme';
+import { BottomTabInset } from '@/constants/theme';
 import { useScreenDimensions } from '@/hooks/use-screen-dimensions';
 
 export default function HomeScreen() {
@@ -38,7 +38,7 @@ export default function HomeScreen() {
 }
 
 const useHomeStyles = () => {
-  const { spacing, scale } = useScreenDimensions();
+  const { spacing, scale, width } = useScreenDimensions();
   return StyleSheet.create({
     container: {
       flex: 1,
@@ -51,7 +51,7 @@ const useHomeStyles = () => {
       alignItems: 'center',
       gap: spacing.three,
       paddingBottom: BottomTabInset * scale + spacing.three,
-      maxWidth: MaxContentWidth,
+      maxWidth: width * 0.8,
     },
     heroSection: {
       alignItems: 'center',
