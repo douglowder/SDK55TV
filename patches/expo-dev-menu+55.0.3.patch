@@ -1,0 +1,136 @@
+diff --git a/node_modules/expo-dev-menu/ios/DevMenuManager.swift b/node_modules/expo-dev-menu/ios/DevMenuManager.swift
+index 44f055c..15e8e9a 100644
+--- a/node_modules/expo-dev-menu/ios/DevMenuManager.swift
++++ b/node_modules/expo-dev-menu/ios/DevMenuManager.swift
+@@ -219,11 +219,13 @@ open class DevMenuManager: NSObject {
+ 
+   override init() {
+     super.init()
+-    self.window = DevMenuWindow(manager: self)
+-    self.packagerConnectionHandler = DevMenuPackagerConnectionHandler(manager: self)
+-    self.packagerConnectionHandler?.setup()
+-    DevMenuPreferences.setup()
+-    self.readAutoLaunchDisabledState()
++    Dispatch.mainSync {
++      self.window = DevMenuWindow(manager: self)
++      self.packagerConnectionHandler = DevMenuPackagerConnectionHandler(manager: self)
++      self.packagerConnectionHandler?.setup()
++      DevMenuPreferences.setup()
++      self.readAutoLaunchDisabledState()
++    }
+   }
+ 
+   deinit {
+@@ -414,6 +416,8 @@ open class DevMenuManager: NSObject {
+       DispatchQueue.main.async {
+ #if os(macOS)
+         self.window?.makeKeyAndOrderFront(nil)
++#elseif os(tvOS)
++        self.window?.makeKeyAndVisible()
+ #else
+         self.updateFABVisibility()
+ 
+diff --git a/node_modules/expo-dev-menu/ios/DevMenuViewController.swift b/node_modules/expo-dev-menu/ios/DevMenuViewController.swift
+index 4e10b03..45e9b47 100644
+--- a/node_modules/expo-dev-menu/ios/DevMenuViewController.swift
++++ b/node_modules/expo-dev-menu/ios/DevMenuViewController.swift
+@@ -46,7 +46,12 @@ class DevMenuViewController: UIViewController {
+     let rootView = DevMenuRootView()
+     let hostingController = UIHostingController(rootView: rootView)
+ 
++    #if os(tvOS)
++    hostingController.view.backgroundColor =
++      preferredUserInterfaceStyle == .dark ? UIColor.systemGray.withAlphaComponent(0.8) : UIColor.white.withAlphaComponent(0.8)
++    #else
+     hostingController.view.backgroundColor = UIColor.clear
++    #endif
+ 
+     addChild(hostingController)
+     view.addSubview(hostingController.view)
+diff --git a/node_modules/expo-dev-menu/ios/DevMenuWindow-default.swift b/node_modules/expo-dev-menu/ios/DevMenuWindow-default.swift
+index cc2c228..15698b8 100644
+--- a/node_modules/expo-dev-menu/ios/DevMenuWindow-default.swift
++++ b/node_modules/expo-dev-menu/ios/DevMenuWindow-default.swift
+@@ -26,7 +26,7 @@ class DevMenuWindow: UIWindow, PresentationControllerDelegate {
+     self.rootViewController = UIViewController()
+     self.backgroundColor = UIColor(white: 0, alpha: 0.4)
+     #if os(tvOS)
+-    self.windowLevel = .normal
++    self.windowLevel = .normal + 1
+     #else
+     self.windowLevel = .statusBar
+     #endif
+@@ -60,7 +60,7 @@ class DevMenuWindow: UIWindow, PresentationControllerDelegate {
+ 
+     isPresenting = true
+     #if os(tvOS)
+-    devMenuViewController.modalPresentationStyle = .automatic
++    devMenuViewController.modalPresentationStyle = .overFullScreen
+     #else
+     devMenuViewController.modalPresentationStyle = .pageSheet
+     #endif
+diff --git a/node_modules/expo-dev-menu/ios/EXDevMenuDevSettings.swift b/node_modules/expo-dev-menu/ios/EXDevMenuDevSettings.swift
+index 442a639..224e4d4 100644
+--- a/node_modules/expo-dev-menu/ios/EXDevMenuDevSettings.swift
++++ b/node_modules/expo-dev-menu/ios/EXDevMenuDevSettings.swift
+@@ -34,8 +34,10 @@ class EXDevMenuDevSettings: NSObject {
+       devSettings["isPerfMonitorAvailable"] = isPerfMonitorAvailable && manager.currentManifest?.isDevelopmentMode() == true
+       devSettings["isJSInspectorAvailable"] = bridgeSettings.isDeviceDebuggingAvailable
+ 
++      #if !os(tvOS)
+       let isElementInspectorAvailable = manager.currentManifest?.isDevelopmentMode()
+       devSettings["isElementInspectorAvailable"] = isElementInspectorAvailable
++      #endif
+     }
+ 
+     return devSettings
+diff --git a/node_modules/expo-dev-menu/ios/SwiftUI/DevMenuMainView.swift b/node_modules/expo-dev-menu/ios/SwiftUI/DevMenuMainView.swift
+index 71188c8..ac9f329 100644
+--- a/node_modules/expo-dev-menu/ios/SwiftUI/DevMenuMainView.swift
++++ b/node_modules/expo-dev-menu/ios/SwiftUI/DevMenuMainView.swift
+@@ -43,7 +43,7 @@ struct DevMenuMainView: View {
+     }
+     .environmentObject(viewModel)
+     .navigationTitle("Dev Menu")
+-#if !os(macOS)
++#if !os(macOS) && !os(tvOS)
+     .navigationBarHidden(true)
+     .navigationBarTitleDisplayMode(.inline)
+ #endif
+diff --git a/node_modules/expo-dev-menu/ios/SwiftUI/SourceMapExplorerView.swift b/node_modules/expo-dev-menu/ios/SwiftUI/SourceMapExplorerView.swift
+index bb011e9..6f089fd 100644
+--- a/node_modules/expo-dev-menu/ios/SwiftUI/SourceMapExplorerView.swift
++++ b/node_modules/expo-dev-menu/ios/SwiftUI/SourceMapExplorerView.swift
+@@ -279,6 +279,9 @@ struct CodeFileView: View {
+   }
+ 
+   private func editingView() -> some View {
++    #if os(tvOS)
++    Text(displayContent)
++    #else
+     TextEditor(text: $displayContent)
+       .font(.system(size: 13, weight: .regular, design: .monospaced))
+       #if os(iOS) || os(tvOS)
+@@ -288,16 +291,21 @@ struct CodeFileView: View {
+       .modifier(ScrollContentBackgroundModifier())
+       .background(theme.background)
+       .foregroundColor(theme.plain)
++    #endif
+   }
+ }
+ 
+ private struct ScrollContentBackgroundModifier: ViewModifier {
+   func body(content: Content) -> some View {
+-    if #available(iOS 16.0, tvOS 16.0, *) {
++    #if os(tvOS)
++    content
++    #else
++    if #available(iOS 16.0, *) {
+       content.scrollContentBackground(.hidden)
+     } else {
+       content
+     }
++    #endif
+   }
+ }
+ 

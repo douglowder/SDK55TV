@@ -1,0 +1,48 @@
+diff --git a/node_modules/expo/ios/AppDelegates/EXReactRootViewFactory.h b/node_modules/expo/ios/AppDelegates/EXReactRootViewFactory.h
+index b6d07c7..2daec5d 100644
+--- a/node_modules/expo/ios/AppDelegates/EXReactRootViewFactory.h
++++ b/node_modules/expo/ios/AppDelegates/EXReactRootViewFactory.h
+@@ -24,7 +24,7 @@ NS_SWIFT_NAME(ExpoReactRootViewFactory)
+ /**
+  Calls super `viewWithModuleName:initialProperties:launchOptions:` from `RCTRootViewFactory`.
+  */
+-#if TARGET_OS_IOS
++#if TARGET_OS_IOS || TARGET_OS_TV
+ - (UIView *)superViewWithModuleName:(NSString *)moduleName
+                   initialProperties:(nullable NSDictionary *)initialProperties
+                       launchOptions:(nullable NSDictionary *)launchOptions
+diff --git a/node_modules/expo/ios/AppDelegates/EXReactRootViewFactory.mm b/node_modules/expo/ios/AppDelegates/EXReactRootViewFactory.mm
+index f5cee2d..6fecc8d 100644
+--- a/node_modules/expo/ios/AppDelegates/EXReactRootViewFactory.mm
++++ b/node_modules/expo/ios/AppDelegates/EXReactRootViewFactory.mm
+@@ -31,7 +31,7 @@
+   return self;
+ }
+ 
+-#if TARGET_OS_IOS
++#if TARGET_OS_IOS || TARGET_OS_TV
+ - (UIView *)viewWithModuleName:(NSString *)moduleName
+              initialProperties:(nullable NSDictionary *)initialProperties
+                  launchOptions:(nullable NSDictionary *)launchOptions
+diff --git a/node_modules/expo/ios/AppDelegates/ExpoReactNativeFactory.swift b/node_modules/expo/ios/AppDelegates/ExpoReactNativeFactory.swift
+index e0b25cc..925e0f9 100644
+--- a/node_modules/expo/ios/AppDelegates/ExpoReactNativeFactory.swift
++++ b/node_modules/expo/ios/AppDelegates/ExpoReactNativeFactory.swift
+@@ -111,7 +111,7 @@ public class ExpoReactNativeFactory: ExpoReactNativeFactoryObjC, ExpoReactNative
+     let rootView: UIView
+     if let factory = self.rootViewFactory as? ExpoReactRootViewFactory {
+       // RCTDevMenuConfiguration is only available in react-native 0.83+
+-#if os(iOS)
++#if os(iOS) || os(tvOS)
+       // When calling `recreateRootViewWithBundleURL:` from `EXReactRootViewFactory`,
+       // we don't want to loop the ReactDelegate again. Otherwise, it will be an infinite loop.
+       rootView = factory.superView(
+@@ -128,7 +128,7 @@ public class ExpoReactNativeFactory: ExpoReactNativeFactoryObjC, ExpoReactNative
+       )
+ #endif
+     } else {
+-#if os(iOS)
++#if os(iOS) || os(tvOS)
+       rootView = rootViewFactory.view(
+         withModuleName: moduleName ?? defaultModuleName,
+         initialProperties: initialProps,
