@@ -7,9 +7,13 @@ import '@/global.css';
 
 import { Platform } from 'react-native';
 
+const tintColorLight = '#0a7ea4';
+const tintColorDark = '#aaa';
+
 export const Colors = {
   light: {
     text: '#000000',
+    tint: tintColorLight,
     background: '#ffffff',
     backgroundElement: '#F0F0F3',
     backgroundSelected: '#E0E1E6',
@@ -17,6 +21,7 @@ export const Colors = {
   },
   dark: {
     text: '#ffffff',
+    tint: tintColorDark,
     background: '#000000',
     backgroundElement: '#212225',
     backgroundSelected: '#2E3135',
