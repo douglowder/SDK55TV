@@ -31,7 +31,7 @@ export default function HomeScreen() {
           <HintRow title="Fresh start" hint="npm reset project" />
         </ThemedView>
 
-        {Platform.OS === 'web' && <WebBadge />}
+        {Platform.OS === 'web' || Platform.isTV ? <WebBadge /> : null}
       </SafeAreaView>
     </ThemedView>
   );
@@ -54,6 +54,7 @@ const useHomeStyles = () => {
       maxWidth: width * 0.8,
     },
     heroSection: {
+      marginTop: Platform.isTV ? spacing.six : 0,
       alignItems: 'center',
       justifyContent: 'center',
       flex: 1,
