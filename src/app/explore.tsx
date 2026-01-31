@@ -49,22 +49,24 @@ export default function TabTwoScreen() {
             This starter app includes example{'\n'}code to help you get started.
           </ThemedText>
 
-          <ExternalLink href="https://docs.expo.dev" asChild>
-            <Pressable style={({ pressed }) => pressed && styles.pressed}>
-              <ThemedView type="backgroundElement" style={styles.linkButton}>
-                <ThemedText type="link">Expo documentation</ThemedText>
-                <SymbolView
-                  tintColor={theme.text}
-                  name={{
-                    ios: 'arrow.up.right.square',
-                    android: 'link',
-                    web: 'link',
-                  }}
-                  size={12 * scale}
-                />
-              </ThemedView>
-            </Pressable>
-          </ExternalLink>
+          {Platform.isTV || Platform.OS === 'web' ? null : (
+            <ExternalLink href="https://docs.expo.dev" asChild>
+              <Pressable style={({ pressed }) => pressed && styles.pressed}>
+                <ThemedView type="backgroundElement" style={styles.linkButton}>
+                  <ThemedText type="link">Expo documentation</ThemedText>
+                  <SymbolView
+                    tintColor={theme.text}
+                    name={{
+                      ios: 'arrow.up.right.square',
+                      android: 'link',
+                      web: 'link',
+                    }}
+                    size={12 * scale}
+                  />
+                </ThemedView>
+              </Pressable>
+            </ExternalLink>
+          )}
         </ThemedView>
 
         <ThemedView style={styles.outerSectionsWrapper}>
