@@ -3,7 +3,6 @@ import {
   Platform,
   Pressable,
   StyleSheet,
-  Text,
   TouchableHighlight,
   TouchableNativeFeedback,
   TouchableOpacity,
@@ -112,7 +111,7 @@ const PressableButton = (props: {
       onLongPress={() => props.log(`${props.title} onLongPress`)}
       style={({ pressed, focused, hovered }) =>
         pressed || focused || hovered
-          ? styles.pressableFocused
+          ? { ...styles.pressable, ...styles.pressableFocused }
           : styles.pressable
       }
     >
@@ -149,7 +148,7 @@ const TouchableOpacityButton = (props: {
       onPressOut={() => props.log(`${props.title} onPressOut`)}
       onLongPress={() => props.log(`${props.title} onLongPress`)}
     >
-      <Text style={styles.pressableText}>{props.title}</Text>
+      <ThemedText style={styles.pressableText}>{props.title}</ThemedText>
     </TouchableOpacity>
   );
 };
@@ -160,7 +159,7 @@ const TouchableHighlightButton = (props: {
 }) => {
   const styles = useDemoStyles();
   const theme = useTheme();
-  const underlayColor = theme.backgroundElement;
+  const underlayColor = theme.tint;
 
   return (
     <TouchableHighlight
@@ -172,7 +171,7 @@ const TouchableHighlightButton = (props: {
       onPressOut={() => props.log(`${props.title} onPressOut`)}
       onLongPress={() => props.log(`${props.title} onLongPress`)}
     >
-      <Text style={styles.pressableText}>{props.title}</Text>
+      <ThemedText style={styles.pressableText}>{props.title}</ThemedText>
     </TouchableHighlight>
   );
 };
@@ -192,7 +191,7 @@ const TouchableNativeFeedbackButton = (props: {
       onLongPress={() => props.log(`${props.title} onLongPress`)}
     >
       <View style={styles.pressable}>
-        <Text style={styles.pressableText}>{props.title}</Text>
+        <ThemedText style={styles.pressableText}>{props.title}</ThemedText>
       </View>
     </TouchableNativeFeedback>
   );
@@ -234,17 +233,13 @@ const useDemoStyles = function () {
       borderWidth: 1,
       borderRadius: 5 * scale,
       margin: 5 * scale,
+      padding: 5 * scale,
     },
     pressableFocused: {
-      borderColor: highlightColor,
       backgroundColor: tintColor,
-      borderWidth: 1,
-      borderRadius: 5 * scale,
-      margin: 5 * scale,
     },
     pressableText: {
       color: backgroundColor,
-      fontSize: 15 * scale,
     },
   });
 };
