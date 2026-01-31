@@ -50,7 +50,7 @@ const useHomeStyles = () => {
       paddingHorizontal: spacing.four,
       alignItems: 'center',
       gap: spacing.three,
-      paddingBottom: BottomTabInset * scale + spacing.three,
+      paddingBottom: Platform.isTV ? 0 : BottomTabInset * scale + spacing.three,
       maxWidth: width * 0.8,
     },
     heroSection: {
