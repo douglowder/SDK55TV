@@ -1,5 +1,5 @@
 import { Image } from 'expo-image';
-import { router } from 'expo-router';
+import { Link } from 'expo-router';
 import { version } from 'expo/package.json';
 import React from 'react';
 import { Pressable, StyleSheet, useColorScheme } from 'react-native';
@@ -15,36 +15,46 @@ export function WebBadge() {
   const theme = useTheme();
   const styles = useBadgeStyles();
   return (
-    <Pressable
-      onPress={() => router.push('/about')}
-      style={({ focused, pressed, hovered }) => [
-        styles.pressable,
-        (focused || pressed || hovered) && { backgroundColor: theme.backgroundElement },
-      ]}
-    >
-      <ThemedView style={styles.container}>
-        <ThemedText
-          type="code"
-          themeColor="textSecondary"
-          style={styles.versionText}
-        >
-          v{version}
-        </ThemedText>
-        <Image
-          source={
-            scheme === 'dark'
-              ? require('@/assets/images/expo-badge-white.png')
-              : require('@/assets/images/expo-badge.png')
-          }
-          style={styles.badgeImage}
-        />
-      </ThemedView>
-    </Pressable>
+    <Link href="/about" asChild>
+      <Pressable>
+        {({ focused, pressed, hovered }) => (
+          <ThemedView
+            style={[
+              styles.container,
+              styles.pressable,
+              (focused || pressed || hovered) && {
+                backgroundColor: theme.tint,
+              },
+            ]}
+          >
+            <ThemedText
+              type="code"
+              themeColor="textSecondary"
+              style={[
+                styles.versionText,
+                (focused || pressed || hovered) && styles.versionTextFocused,
+              ]}
+            >
+              v{version}
+            </ThemedText>
+            <Image
+              source={
+                scheme === 'dark'
+                  ? require('@/assets/images/expo-badge-white.png')
+                  : require('@/assets/images/expo-badge.png')
+              }
+              style={styles.badgeImage}
+            />
+          </ThemedView>
+        )}
+      </Pressable>
+    </Link>
   );
 }
 
 const useBadgeStyles = () => {
   const { spacing, scale } = useScreenDimensions();
+  const theme = useTheme();
   return StyleSheet.create({
     pressable: {
       paddingHorizontal: spacing.four,
@@ -58,6 +68,9 @@ const useBadgeStyles = () => {
     },
     versionText: {
       textAlign: 'center',
+    },
+    versionTextFocused: {
+      color: theme.background,
     },
     badgeImage: {
       width: 123 * scale,

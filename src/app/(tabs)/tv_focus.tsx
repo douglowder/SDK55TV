@@ -1,18 +1,12 @@
-import { Platform, StyleSheet, TVFocusGuideView } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { EventHandlingDemo } from '@/components/tv-event-demo';
+import { TVFocusGuideView } from '@/components/tv-focus-guide';
 import { Collapsible } from '@/components/ui/collapsible';
 import { useScreenDimensions } from '@/hooks/use-screen-dimensions';
 import { useTheme } from '@/hooks/use-theme';
-
-const WrappedTVFocusGuideView = (props: any) => {
-  if (Platform.OS === 'web') {
-    return <ThemedView {...props} />;
-  }
-  return <TVFocusGuideView {...props} />;
-};
 
 export default function FocusDemoScreen() {
   const styles = useFocusDemoScreenStyles();
@@ -31,7 +25,7 @@ export default function FocusDemoScreen() {
         { backgroundColor: theme.background },
       ]}
     >
-      <WrappedTVFocusGuideView autoFocus>
+      <TVFocusGuideView autoFocus>
         <ThemedView style={styles.titleContainer}>
           <ThemedText type="subtitle">TV event handling demo</ThemedText>
         </ThemedView>
@@ -68,7 +62,7 @@ export default function FocusDemoScreen() {
             the screen.
           </ThemedText>
         </Collapsible>
-      </WrappedTVFocusGuideView>
+      </TVFocusGuideView>
       <EventHandlingDemo />
     </ThemedView>
   );
