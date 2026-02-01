@@ -1,4 +1,4 @@
-import { Link } from 'expo-router';
+import { useRouter } from 'expo-router';
 import React from 'react';
 import { Pressable, StyleSheet } from 'react-native';
 
@@ -9,32 +9,44 @@ import { useTheme } from '@/hooks/use-theme';
 
 export default function AboutScreen() {
   const styles = useAboutStyles();
+  const router = useRouter();
 
   return (
     <ThemedView style={styles.container}>
       <ThemedText type="subtitle">About</ThemedText>
       <ThemedText>This is a demo Expo Router app with TV support.</ThemedText>
-      <Link href="../" asChild>
-        <Pressable>
-          {({ focused, hovered, pressed }) => (
-            <ThemedView
-              style={[
-                styles.dismissButton,
-                pressed || focused || hovered ? styles.pressed : null,
-              ]}
+      <Pressable
+        onPress={() => {
+          if (router.canDismiss()) {
+            console.log('Dismiss');
+            router.dismiss();
+          } else if (router.canGoBack()) {
+            console.log('Back');
+            router.back();
+          } else {
+            console.log('Navigate');
+            router.navigate('/');
+          }
+        }}
+      >
+        {({ focused, hovered, pressed }) => (
+          <ThemedView
+            style={[
+              styles.dismissButton,
+              pressed || focused || hovered ? styles.pressed : null,
+            ]}
+          >
+            <ThemedText
+              type="link"
+              style={
+                (focused || pressed || hovered) && styles.dismissTextFocused
+              }
             >
-              <ThemedText
-                type="link"
-                style={
-                  (focused || pressed || hovered) && styles.dismissTextFocused
-                }
-              >
-                Dismiss
-              </ThemedText>
-            </ThemedView>
-          )}
-        </Pressable>
-      </Link>
+              Dismiss
+            </ThemedText>
+          </ThemedView>
+        )}
+      </Pressable>
     </ThemedView>
   );
 }
