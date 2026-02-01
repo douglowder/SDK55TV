@@ -24,9 +24,13 @@ export default function RootLayout() {
           name="about"
           options={{
             // Set the presentation mode to modal for our modal route.
-            presentation: 'modal',
+            presentation: 'transparentModal',
             headerShown: false,
             contentStyle: {
+              flex: 1,
+              backgroundColor: colors.backgroundElement,
+              animationDuration: 1000,
+              opacity: 0.95,
               width: '70%',
               maxHeight: '80%',
               alignSelf: 'center',

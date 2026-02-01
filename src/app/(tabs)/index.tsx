@@ -31,7 +31,7 @@ export default function HomeScreen() {
           <HintRow title="Fresh start" hint="npm reset project" />
         </ThemedView>
 
-        {Platform.OS === 'web' || Platform.isTV ? <WebBadge /> : null}
+        <WebBadge />
       </SafeAreaView>
     </ThemedView>
   );

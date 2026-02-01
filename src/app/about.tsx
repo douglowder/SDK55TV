@@ -56,13 +56,13 @@ const useAboutStyles = () => {
   const theme = useTheme();
   return StyleSheet.create({
     container: {
-      flex: 1,
       width: '100%',
+      flex: 1,
       padding: 24,
       gap: 16,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: theme.background,
+      backgroundColor: theme.backgroundElement,
     },
     pressed: {
       backgroundColor: theme.tint,
