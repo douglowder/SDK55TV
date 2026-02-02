@@ -1,0 +1,49 @@
+diff --git a/node_modules/expo-dev-launcher/ios/ReactDelegateHandler/ExpoDevLauncherReactDelegateHandler.swift b/node_modules/expo-dev-launcher/ios/ReactDelegateHandler/ExpoDevLauncherReactDelegateHandler.swift
+index e02ea0c..1c1a9b0 100644
+--- a/node_modules/expo-dev-launcher/ios/ReactDelegateHandler/ExpoDevLauncherReactDelegateHandler.swift
++++ b/node_modules/expo-dev-launcher/ios/ReactDelegateHandler/ExpoDevLauncherReactDelegateHandler.swift
+@@ -4,11 +4,44 @@ import ExpoModulesCore
+ import EXUpdatesInterface
+ import React
+ 
++extension UIDeviceOrientation {
++  var stringValue: String  {
++    switch self {
++    case .portrait: return "portrait"
++    case .portraitUpsideDown: return "portraitUpsideDown"
++    case .landscapeLeft: return "landscapeLeft"
++    case .landscapeRight: return "landscapeRight"
++    default: return "unknown"
++    }
++  }
++}
++
+ private class DevLauncherWrapperView: UIView {
+   weak var devLauncherViewController: UIViewController?
+ 
++#if os(iOS)
++@objc
++public func orientationDidChange() {
++  let orientation: UIDeviceOrientation = UIDevice.current.orientation
++  print("orientationDidChange to \(orientation.stringValue)")
++  if let devLauncherViewController = devLauncherViewController as? DevLauncherViewController {
++    devLauncherViewController.view.translatesAutoresizingMaskIntoConstraints = false
++    NSLayoutConstraint.activate([
++      devLauncherViewController.view.topAnchor.constraint(equalTo: self.topAnchor),
++      devLauncherViewController.view.leadingAnchor.constraint(equalTo: self.leadingAnchor),
++      devLauncherViewController.view.trailingAnchor.constraint(equalTo: self.trailingAnchor),
++      devLauncherViewController.view.bottomAnchor.constraint(equalTo: self.bottomAnchor)
++    ])  }
++}
++
++#endif
++
++
+ #if !os(macOS)
+   override func didMoveToWindow() {
++    #if os(iOS)
++    NotificationCenter.default.addObserver(self, selector: #selector(orientationDidChange), name: UIDevice.orientationDidChangeNotification, object: nil)
++    #endif
+     super.didMoveToWindow()
+ 
+     guard let devLauncherViewController,
