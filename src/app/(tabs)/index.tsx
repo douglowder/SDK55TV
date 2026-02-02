@@ -31,6 +31,7 @@ export default function HomeScreen() {
         </ThemedView>
 
         <WebBadge />
+        <ThemedView style={{ flex: 1 }} />
       </SafeAreaView>
     </ThemedView>
   );
