@@ -1,0 +1,14 @@
+diff --git a/node_modules/react-native-screens/ios/RNSScreen.mm b/node_modules/react-native-screens/ios/RNSScreen.mm
+index d83fa90..df4e965 100644
+--- a/node_modules/react-native-screens/ios/RNSScreen.mm
++++ b/node_modules/react-native-screens/ios/RNSScreen.mm
+@@ -2075,6 +2075,9 @@ Class<RCTComponentViewProtocol> RNSScreenCls(void)
+   if ([vc isKindOfClass:[RNSScreen class]]) {
+     return ((RNSScreen *)vc).screenView.screenOrientation;
+   }
++  if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
++    return UIInterfaceOrientationMaskAll;
++  }
+   return UIInterfaceOrientationMaskAllButUpsideDown;
+ }
+ 
