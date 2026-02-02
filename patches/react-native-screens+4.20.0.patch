@@ -1,20 +1,5 @@
 diff --git a/node_modules/react-native-screens/ios/gamma/split-view/RNSSplitViewAppearanceApplicator.swift b/node_modules/react-native-screens/ios/gamma/split-view/RNSSplitViewAppearanceApplicator.swift
 index c4696c8..97c2d1a 100644
---- a/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenStack.kt
-+++ b/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenStack.kt
-@@ -220,6 +220,12 @@ class ScreenStack(
-             }
-         }
- 
-+        if (newTop !== topScreenWrapper && newTop != null
-+        ) {
-+            topScreenWrapper?.screen?.descendantFocusability = FOCUS_BLOCK_DESCENDANTS
-+            newTop.screen.descendantFocusability = FOCUS_AFTER_DESCENDANTS
-+        }
-+
-         createTransaction().let { transaction ->
-             if (stackAnimation != null) {
-                 transaction.setTweenAnimations(stackAnimation, shouldUseOpenAnimation)
 --- a/node_modules/react-native-screens/ios/gamma/split-view/RNSSplitViewAppearanceApplicator.swift
 +++ b/node_modules/react-native-screens/ios/gamma/split-view/RNSSplitViewAppearanceApplicator.swift
 @@ -65,7 +65,9 @@ class RNSSplitViewAppearanceApplicator {
