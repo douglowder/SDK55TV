@@ -6,7 +6,6 @@ import { HintRow } from '@/components/hint-row';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset } from '@/constants/theme';
 import { useScreenDimensions } from '@/hooks/use-screen-dimensions';
 
 export default function HomeScreen() {
@@ -38,19 +37,18 @@ export default function HomeScreen() {
 }
 
 const useHomeStyles = () => {
-  const { spacing, scale, width } = useScreenDimensions();
+  const { spacing, width } = useScreenDimensions();
   return StyleSheet.create({
     container: {
       flex: 1,
       justifyContent: 'center',
       flexDirection: 'row',
+      width,
     },
     safeArea: {
-      flex: 1,
       paddingHorizontal: spacing.four,
       alignItems: 'center',
       gap: spacing.three,
-      paddingBottom: Platform.isTV ? 0 : BottomTabInset * scale + spacing.three,
       maxWidth: width * 0.8,
     },
     heroSection: {

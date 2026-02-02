@@ -17,7 +17,7 @@ export default function TabTwoScreen() {
   const safeAreaInsets = useSafeAreaInsets();
   const theme = useTheme();
   const styles = useExploreStyles();
-  const { scale, spacing } = useScreenDimensions();
+  const { scale, spacing, orientation } = useScreenDimensions();
   const insets = {
     ...safeAreaInsets,
     bottom: safeAreaInsets.bottom + BottomTabInset * scale + spacing.three,
@@ -39,7 +39,7 @@ export default function TabTwoScreen() {
   return (
     <ScrollView
       style={[styles.scrollView, { backgroundColor: theme.background }]}
-      contentInset={Platform.isTV ? undefined : insets}
+      contentInset={orientation === 'landscape' ? undefined : insets}
       contentContainerStyle={[styles.contentContainer, contentPlatformStyle]}
     >
       <ThemedView style={styles.container}>
@@ -162,7 +162,7 @@ const useExploreStyles = () => {
     contentContainer: {
       flexDirection: 'row',
       justifyContent: 'center',
-      width: '100%',
+      width,
     },
     container: {
       maxWidth: width * 0.8,

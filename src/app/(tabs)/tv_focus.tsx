@@ -11,7 +11,7 @@ import { useTheme } from '@/hooks/use-theme';
 export default function FocusDemoScreen() {
   const styles = useFocusDemoScreenStyles();
   const theme = useTheme();
-  const { spacing } = useScreenDimensions();
+  const { spacing, width } = useScreenDimensions();
   const contentPlatformStyle = {
     paddingTop: spacing.six + spacing.four,
     paddingBottom: spacing.four,
@@ -25,7 +25,7 @@ export default function FocusDemoScreen() {
         { backgroundColor: theme.background },
       ]}
     >
-      <TVFocusGuideView autoFocus>
+      <TVFocusGuideView autoFocus style={styles.innerContainer}>
         <ThemedView style={styles.titleContainer}>
           <ThemedText type="subtitle">TV event handling demo</ThemedText>
         </ThemedView>
@@ -79,11 +79,19 @@ const useFocusDemoScreenStyles = function () {
       backgroundColor: theme.background,
       paddingHorizontal: spacing.four,
       paddingTop: spacing.three,
+      width,
+    },
+    innerContainer: {
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
+      width: width * 0.8,
     },
     titleContainer: {
+      width: '100%',
       flexDirection: 'row',
-      gap: 8 * scale,
+      gap: spacing.two,
       justifyContent: 'center',
+      marginBottom: spacing.three,
     },
     sectionsWrapper: {},
   });

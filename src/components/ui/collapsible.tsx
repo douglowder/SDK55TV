@@ -54,13 +54,13 @@ export function Collapsible({
 }
 
 const useCollapsibleStyles = () => {
-  const { spacing, scale } = useScreenDimensions();
+  const { spacing, scale, width } = useScreenDimensions();
   const theme = useTheme();
   return StyleSheet.create({
     heading: {
       flexDirection: 'row',
       alignItems: 'center',
-      width: '100%',
+      width,
       gap: spacing.two,
       borderRadius: 12 * scale,
     },
