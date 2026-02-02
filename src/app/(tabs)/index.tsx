@@ -1,4 +1,4 @@
-import { Platform, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { AnimatedIcon } from '@/components/animated-icon';
@@ -13,6 +13,7 @@ export default function HomeScreen() {
   return (
     <ThemedView style={styles.container}>
       <SafeAreaView style={styles.safeArea}>
+        <ThemedView style={{ flex: 1 }} />
         <ThemedView style={styles.heroSection}>
           <AnimatedIcon />
           <ThemedText type="title" style={styles.title}>
@@ -53,7 +54,6 @@ const useHomeStyles = () => {
       maxWidth: width * 0.8,
     },
     heroSection: {
-      marginTop: Platform.isTV ? spacing.six : 0,
       alignItems: 'center',
       justifyContent: 'center',
       flex: 1,
@@ -64,6 +64,7 @@ const useHomeStyles = () => {
       textAlign: 'center',
     },
     code: {
+      marginTop: spacing.four,
       textTransform: 'uppercase',
     },
     stepContainer: {
