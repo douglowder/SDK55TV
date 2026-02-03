@@ -1,8 +1,8 @@
 diff --git a/node_modules/react-native-screens/ios/RNSScreen.mm b/node_modules/react-native-screens/ios/RNSScreen.mm
-index d83fa90..df4e965 100644
+index 5e54f7e..1c44762 100644
 --- a/node_modules/react-native-screens/ios/RNSScreen.mm
 +++ b/node_modules/react-native-screens/ios/RNSScreen.mm
-@@ -2075,6 +2075,9 @@ Class<RCTComponentViewProtocol> RNSScreenCls(void)
+@@ -2097,6 +2097,9 @@ Class<RCTComponentViewProtocol> RNSScreenCls(void)
    if ([vc isKindOfClass:[RNSScreen class]]) {
      return ((RNSScreen *)vc).screenView.screenOrientation;
    }
