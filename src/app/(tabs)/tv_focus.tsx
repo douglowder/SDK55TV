@@ -34,7 +34,7 @@ export default function FocusDemoScreen() {
           <ThemedText type="code">Pressable</ThemedText> and{' '}
           <ThemedText type="code">Touchable</ThemedText> components.
         </ThemedText>
-        <Collapsible title="How it works">
+        <Collapsible title="How it works" style={{ width: '100%' }}>
           <ThemedText>
             • On TV platforms, these components have "onFocus()" and "onBlur()"
             props, in addition to the usual "onPress()". These can be used to
@@ -69,7 +69,7 @@ export default function FocusDemoScreen() {
 }
 
 const useFocusDemoScreenStyles = function () {
-  const { scale, width, spacing } = useScreenDimensions();
+  const { width, spacing } = useScreenDimensions();
   const theme = useTheme();
   return StyleSheet.create({
     contentContainer: {
@@ -85,6 +85,7 @@ const useFocusDemoScreenStyles = function () {
       justifyContent: 'flex-start',
       alignItems: 'flex-start',
       width: width * 0.8,
+      gap: spacing.two,
     },
     titleContainer: {
       width: '100%',

@@ -198,7 +198,7 @@ const TouchableNativeFeedbackButton = (props: {
 };
 
 const useDemoStyles = function () {
-  const { scale, width } = useScreenDimensions();
+  const { height, width, spacing } = useScreenDimensions();
   const theme = useTheme();
   const highlightColor = theme.tint;
   const backgroundColor = theme.background;
@@ -213,17 +213,17 @@ const useDemoStyles = function () {
     },
     logContainer: {
       flexDirection: 'row',
-      padding: 5 * scale,
-      margin: 5 * scale,
+      padding: spacing.one,
+      margin: spacing.one,
       alignItems: 'flex-start',
       justifyContent: 'flex-start',
     },
     logText: {
-      maxHeight: 300 * scale,
+      maxHeight: height * 0.5,
       width: width * 0.2,
-      fontSize: 10 * scale,
-      margin: 5 * scale,
-      lineHeight: 12 * scale,
+      fontSize: spacing.two * 1.2,
+      margin: spacing.one,
+      lineHeight: spacing.two * 1.5,
       alignSelf: 'flex-start',
       justifyContent: 'flex-start',
     },
@@ -231,9 +231,9 @@ const useDemoStyles = function () {
       borderColor: highlightColor,
       backgroundColor: textColor,
       borderWidth: 1,
-      borderRadius: 5 * scale,
-      margin: 5 * scale,
-      padding: 5 * scale,
+      borderRadius: spacing.three,
+      margin: spacing.two,
+      padding: spacing.one * 1.5,
     },
     pressableFocused: {
       backgroundColor: tintColor,

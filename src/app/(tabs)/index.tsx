@@ -39,7 +39,8 @@ export default function HomeScreen() {
 }
 
 const useHomeStyles = () => {
-  const { spacing, width } = useScreenDimensions();
+  const { spacing, width, landscape } = useScreenDimensions();
+
   return StyleSheet.create({
     container: {
       flex: 1,
@@ -58,13 +59,13 @@ const useHomeStyles = () => {
       justifyContent: 'center',
       flex: 1,
       paddingHorizontal: spacing.four,
-      gap: spacing.four,
+      gap: landscape ? spacing.one : spacing.four,
+      marginBottom: landscape ? spacing.four : spacing.six,
     },
     title: {
       textAlign: 'center',
     },
     code: {
-      marginTop: spacing.four,
       textTransform: 'uppercase',
     },
     stepContainer: {

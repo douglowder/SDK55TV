@@ -17,7 +17,7 @@ export default function TabTwoScreen() {
   const safeAreaInsets = useSafeAreaInsets();
   const theme = useTheme();
   const styles = useExploreStyles();
-  const { scale, spacing, orientation } = useScreenDimensions();
+  const { scale, spacing, landscape } = useScreenDimensions();
   const insets = {
     ...safeAreaInsets,
     bottom: safeAreaInsets.bottom + BottomTabInset * scale + spacing.three,
@@ -39,7 +39,7 @@ export default function TabTwoScreen() {
   return (
     <ScrollView
       style={[styles.scrollView, { backgroundColor: theme.background }]}
-      contentInset={orientation === 'landscape' ? undefined : insets}
+      contentInset={landscape ? undefined : insets}
       contentContainerStyle={[styles.contentContainer, contentPlatformStyle]}
     >
       <ThemedView style={styles.container}>
@@ -154,7 +154,7 @@ export default function TabTwoScreen() {
 }
 
 const useExploreStyles = () => {
-  const { spacing, scale, width, orientation } = useScreenDimensions();
+  const { spacing, scale, width, landscape } = useScreenDimensions();
   return StyleSheet.create({
     scrollView: {
       flex: 1,
@@ -190,11 +190,11 @@ const useExploreStyles = () => {
       alignItems: 'center',
     },
     outerSectionsWrapper: {
-      flexDirection: orientation === 'landscape' ? 'row' : 'column',
+      flexDirection: landscape ? 'row' : 'column',
       width: '100%',
     },
     sectionsWrapper: {
-      width: orientation === 'landscape' ? '50%' : '100%',
+      width: landscape ? '50%' : '100%',
       gap: spacing.five,
       paddingHorizontal: spacing.four,
       paddingTop: spacing.three,

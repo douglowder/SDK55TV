@@ -1,6 +1,6 @@
 import { SymbolView } from 'expo-symbols';
 import { PropsWithChildren, useState } from 'react';
-import { Pressable, StyleSheet } from 'react-native';
+import { Pressable, StyleSheet, ViewStyle } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
 
 import { ThemedText } from '@/components/themed-text';
@@ -11,13 +11,14 @@ import { useTheme } from '@/hooks/use-theme';
 export function Collapsible({
   children,
   title,
-}: PropsWithChildren & { title: string }) {
+  style,
+}: PropsWithChildren & { title: string; style?: ViewStyle }) {
   const [isOpen, setIsOpen] = useState(false);
   const theme = useTheme();
   const styles = useCollapsibleStyles();
   const { scale } = useScreenDimensions();
   return (
-    <ThemedView>
+    <ThemedView style={style ?? {}}>
       <Pressable
         style={({ pressed, focused }) => [
           styles.heading,
@@ -54,15 +55,15 @@ export function Collapsible({
 }
 
 const useCollapsibleStyles = () => {
-  const { spacing, scale, width } = useScreenDimensions();
+  const { spacing } = useScreenDimensions();
   const theme = useTheme();
   return StyleSheet.create({
     heading: {
       flexDirection: 'row',
       alignItems: 'center',
-      width,
+      width: '100%',
       gap: spacing.two,
-      borderRadius: 12 * scale,
+      borderRadius: spacing.three,
     },
     pressedHeading: {
       opacity: 0.7,
@@ -73,7 +74,7 @@ const useCollapsibleStyles = () => {
     button: {
       width: spacing.four,
       height: spacing.four,
-      borderRadius: 12 * scale,
+      borderRadius: spacing.three,
       justifyContent: 'center',
       alignItems: 'center',
     },

@@ -1,16 +1,11 @@
 import { Spacing } from '@/constants/theme';
 import { useWindowDimensions } from 'react-native';
 
-export enum ScreenOrientationType {
-  portrait = 'portrait',
-  landscape = 'landscape',
-}
-
 export type ScreenDimensionsResult = {
   width: number;
   height: number;
   scale: number;
-  orientation: string;
+  landscape: boolean;
   spacing: typeof Spacing;
 };
 
@@ -21,7 +16,7 @@ export function useScreenDimensions(): ScreenDimensionsResult {
     width,
     height,
     scale,
-    orientation: width > height ? 'landscape' : 'portrait',
+    landscape: width > height,
     spacing: {
       half: Spacing.half * scale,
       one: Spacing.one * scale,
